@@ -30,3 +30,6 @@ for ( i in input ) {
 
 # solution part 1
 max(x)
+
+# solution part 2
+sort(x) %>% tail(3) %>% sum()
