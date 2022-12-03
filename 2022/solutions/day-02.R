@@ -53,7 +53,7 @@ mtx_strategy <- matrix(c(0L, 3L, 6L),
 
 y <- input %>%
   mutate(output_score = map_int(player, ~ mtx_strategy[1, .x])) %>% 
-  mutate(output = map2_chr(opponent, output_score, ~ dimnames(mtx_output)[[2]][mtx_output[.x ,] == .y])) %>% 
+  mutate(output = map2_chr(opponent, output_score, ~ colnames(mtx_output)[mtx_output[.x ,] == .y])) %>% 
   mutate(shape_score = map_int(output, ~ mtx_shape[1, .x]))
 
 # solution part 2
