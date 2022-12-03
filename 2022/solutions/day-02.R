@@ -2,7 +2,7 @@ library(tidyverse)
 library(glue)
 
 day <- "02"
-input_file <- glue("../examples/day-{day}.txt")
+input_file <- glue("../input/day-{day}.txt")
 
 
 input <-read_delim(input_file, delim = " ", col_names = c("opponent", "player"))
