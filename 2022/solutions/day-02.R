@@ -2,11 +2,10 @@ library(tidyverse)
 library(glue)
 
 day <- "02"
-input_file <- glue("input/day-{day}.txt")
+input_file <- glue("../input/day-{day}.txt")
 
 
 input <-read_delim(input_file, delim = " ", col_names = c("opponent", "player"))
-
 
 x <- input %>% 
   mutate(player = str_replace_all(player, c("X" = "A", "Y" = "B", "Z" = "C"))) %>% 
@@ -21,3 +20,22 @@ x <- input %>%
 
 # solution part 1
 sum(x$shape_score, x$output_score)
+
+
+# other way
+mtx_output <- matrix(c(3L, 6L, 0L,
+                       0L, 3L, 6L,
+                       6L, 0L, 3L), 
+                     nrow = 3, byrow = TRUE, 
+                     dimnames = list(c("A", "B", "C"), c("X", "Y", 'Z')))
+
+mtx_shape <- matrix(c(1L, 2L, 3L),
+                    nrow = 1, dimnames = list(c("M"), c("X", "Y", 'Z')))
+
+x <- input %>% 
+  mutate(output_score = map2_int(opponent, player, ~ mtx_output[.x, .y])) %>% 
+  mutate(shape_score = map_int(player, ~ mtx_shape[1, .x]))
+
+
+# solution part 1
+sum(x$shape_score, x$output_score)              
