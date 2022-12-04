@@ -46,7 +46,7 @@ sum(x$shape_score, x$output_score)
 
 
 
-#part 2
+# part 2
 
 mtx_strategy <- matrix(c(0L, 3L, 6L),
                     nrow = 1, dimnames = list(c("M"), c("X", "Y", "Z")))

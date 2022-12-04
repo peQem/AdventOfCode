@@ -24,3 +24,21 @@ x <- input %>%
 
 # solution part 1
 sum(x$priority)
+
+
+
+# part 2
+y <- x %>% 
+  mutate(group_id = (row_number() - 1) %/% 3) %>% 
+  group_by(group_id) %>% 
+  
+  summarise(group_input = list(input)) %>% 
+  
+  mutate(group_items =  map(group_input, ~ strsplit(.x, "")),
+         
+         common_item = map_chr(group_items, ~ intersect(intersect(.x[[1]], .x[[2]]), .x[[3]])),
+         
+         priority = priority[common_item])
+
+# solution part 2
+sum(y$priority)
